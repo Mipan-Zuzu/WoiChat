@@ -1,20 +1,19 @@
 //todo : Proses require CommonJs
-const express = require('express')
 const chalk = require('chalk')
 const fs = require('fs')
-const { get } = require('http')
 
+const express = require('express')
+const path = require('path')
 const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {
-    res.send('Something went /GET')
+    res.sendFile(path.join(__dirname, '../index.html'))
 })
 
-app.get('/index.html', (res , req) => {
-    fs.readFile('../index.html' , 'utf8' , (data) => {
-        res.send(data)
-    })
+app.use('/', (req, res) => {
+    res.status(404)
+    res.send('<center><h1>404 Not Found</h1></center>')
 })
 
 app.listen(port, () => {
