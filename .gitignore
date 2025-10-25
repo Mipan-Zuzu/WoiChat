@@ -1,2 +1,8 @@
-*.css
-*.html
+# Node
+node_modules/
+# Build output
+frontend/dist/
+# Env files
+*.env
+# Logs
+*.log
