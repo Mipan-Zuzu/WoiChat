@@ -8,13 +8,13 @@ export default function Codespace({ code, lang = "python" }) {
   useEffect(() => {
     async function load() {
       const highlighter = await shiki.getSingletonHighlighter({
-        themes: ["vitesse-dark"],
+        themes: ["rose-pine"],
         langs: [lang],
       });
 
       const html = highlighter.codeToHtml(code, {
         lang,
-        theme: "vitesse-dark",
+        theme: "rose-pine",
       });
 
       setHtml(html);
@@ -24,7 +24,7 @@ export default function Codespace({ code, lang = "python" }) {
   }, [code, lang]);
 
   return (
-    <div className="border-gray-700 rounded-r-4xl border ">
+    <div className="border-gray-700 rounded-r-4xl border opacity-40 hover:rotate-2 hover:scale-110 duration-300 hover:opacity-100 ">
         <div className="mt-3 ml-3">
             <Dots />
         </div>
@@ -34,5 +34,6 @@ export default function Codespace({ code, lang = "python" }) {
         className="rounded-xl overflow-hidden font-mono text-sm p-5 "
       />
     </div>
+
   );
 }
