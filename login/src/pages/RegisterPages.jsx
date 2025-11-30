@@ -1,0 +1,70 @@
+import Label from "../components/Label"
+import Title from "../components/Title"
+import Button from "../components/Button"
+import { useRef, useState} from "react"
+import validator from 'validator';
+
+const RegisterPage = () => {
+
+    const inputEmail =  useRef(null)
+    const inputPassword = useRef(null)
+    
+    const [emailCheck, setEmailCheck] = useState()
+    const [passwordCheck, setPasswordCheck] = useState()
+
+    const sesionLogin = () => {
+
+        setEmailCheck(null)
+        setPasswordCheck(null)
+
+        const Email = inputEmail.current.value
+        const Password = inputPassword.current.value
+        if(Email === "" && Password === ""){
+            console.log("Email tidak terdaftar")
+            return
+        }
+
+        const sendApi = () => {
+            fetch("http://localhost:5000/result", {
+            method : "POST",
+            headers : {"Content-Type": "application/json"},
+            body : JSON.stringify({ Email: Email ,Password : Password})
+        }).then((res) => res.json())
+        .catch((err) => console.error(err))
+        }
+
+        validator.isEmail(Email) === true ? console.log(Email) : setEmailCheck("Email not valid")
+        Password === "" ? setPasswordCheck("use strong password") : console.log({message : "password valid"})
+        if(validator.isEmail(Email) === true && Password !== "") {
+            console.log({message : "login berhasil terkirim"})
+            sendApi()
+            window.location.href = "/login"
+        }
+    }
+
+
+    return (
+        <>
+            <form className="min-h-screen flex flex-col justify-center items-center">
+                <Title size={"text-2xl font-medium"}>Sign up</Title>
+                <p className="text-red-500">{emailCheck} <br />{passwordCheck}</p>
+                <div className="mb-2">
+                    <Title >Email</Title>
+                    <Label type="email" 
+                    ref={inputEmail}
+                    placeholder="Example@mail.com">Email</Label>
+                </div>
+                <div className="mb-2">
+                    <Title>password</Title>
+                    <Label type="password" 
+                    ref={inputPassword}
+                    placeholder="password">password</Label>
+                </div>
+                <Button type="button" size={"p-2 border w-64"} onClick={sesionLogin}>Login</Button>
+            </form>
+        </>
+    )
+}
+
+
+export default RegisterPage
