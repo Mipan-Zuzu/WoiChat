@@ -6,6 +6,7 @@ import ErrorPages from "./pages/ErorPages";
 import RegisterPage from "./pages/RegisterPages";
 import LoginPage from "./pages/LoginPage";
 import HomePages from "./pages/homePages";
+import ProtectedRoute from "./service/RequireLogin"
 
 const router = createBrowserRouter([
 
@@ -26,9 +27,13 @@ const router = createBrowserRouter([
   },
 
   {
-    path : "/home",
-    element : <HomePages />
-  }
+  path: "/home",
+  element: (
+    <ProtectedRoute>
+      <HomePages />
+    </ProtectedRoute>
+  ),
+}
 
 
 ])

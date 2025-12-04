@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import Button from "../components/Button";
 import Label from "../components/Label";
 import Title from "../components/Title";
@@ -11,13 +12,13 @@ const LoginPage = () => {
   const [checkEmail, setCheckEmail] = useState();
   const [checkPassword, setCheckPassword] = useState();
   const [checkVal, setCheckVal] = useState();
-  const [checkRes, setCheckRes] = useState()
+  const [checkRes, setCheckRes] = useState();
 
   const sinkronLogin = () => {
     setCheckEmail(null);
     setCheckPassword(null);
     setCheckVal(null);
-    setCheckRes(null)
+    setCheckRes(null);
 
     const Email = inputEmail.current.value;
     const Password = inputPassword.current.value;
@@ -25,38 +26,42 @@ const LoginPage = () => {
       setCheckVal("password dan Email harus di isi");
       return;
     }
-    
+
     const checkLogin = async () => {
       const res = await fetch("http://localhost:5000/login", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           Email: Email,
           Password: Password,
         }),
-      });
-      const data = await res.json()
-      if(data.message === false) {
-        setCheckRes("email atau password salah")
-        console.log({status : 404,
-          message : "Failed to login"
-        })
-        return
+      })
+      const data = await res.json();
+      if (data.login === false) {
+        setCheckRes("Email atau password salah");
+        return;
       }
 
-      if(data.message === true) {
+      if (data.login === true) {
+        console.log(data.login)
+        console.log(data.user)
+        console.log("masuk")
         window.location.href = "/home"
       }
-    };
-
-      validator.isEmail(Email) === true ? console.log({message : "Email valid"}) : setCheckEmail("it's dosen't looks like Email")
-      Password === "" ? setCheckPassword("there is no password") : console.log({message : "password valid"})
-
-    if(validator.isEmail(Email) === true && Password !== "") {
-      checkLogin()
-      return
     }
-    
+
+    validator.isEmail(Email) === true
+      ? console.log({ message: "Email valid" })
+      : setCheckEmail("it's dosen't looks like Email");
+    Password === ""
+      ? setCheckPassword("there is no password")
+      : console.log({ message: "password valid" });
+
+    if (validator.isEmail(Email) === true && Password !== "") {
+      checkLogin();
+      return;
+    }
   };
 
   return (

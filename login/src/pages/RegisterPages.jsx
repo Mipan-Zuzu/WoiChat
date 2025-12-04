@@ -16,13 +16,19 @@ const RegisterPage = () => {
 
         setEmailCheck(null)
         setPasswordCheck(null)
-
+        
+        
         const Email = inputEmail.current.value
         const Password = inputPassword.current.value
+        
+        Password === "" ? setPasswordCheck("password empty") : console.log({message : "password valid"})
+        validator.isEmail(Email) === true ? console.log(Email) : setEmailCheck("Email not valid")
+
         if(Email === "" && Password === ""){
             console.log("Email tidak terdaftar")
             return
         }
+
 
         const sendApi = () => {
             fetch("http://localhost:5000/result", {
@@ -33,8 +39,7 @@ const RegisterPage = () => {
         .catch((err) => console.error(err))
         }
 
-        validator.isEmail(Email) === true ? console.log(Email) : setEmailCheck("Email not valid")
-        Password === "" ? setPasswordCheck("use strong password") : console.log({message : "password valid"})
+
         if(validator.isEmail(Email) === true && Password !== "") {
             console.log({message : "login berhasil terkirim"})
             sendApi()
