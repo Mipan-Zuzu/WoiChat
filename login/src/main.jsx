@@ -5,7 +5,7 @@ import "./index.css";
 import ErrorPages from "./pages/ErorPages";
 import RegisterPage from "./pages/RegisterPages";
 import LoginPage from "./pages/LoginPage";
-import HomePages from "./pages/homePages";
+import HomePages from "./pages/HomePages";
 import ProtectedRoute from "./service/RequireLogin"
 
 const router = createBrowserRouter([
