@@ -5,7 +5,7 @@ import axios from "axios";
 const HomePages = () => {
 
   const logout = () => {
-    axios.get("http://localhost:5000/logout", { withCredentials : true})
+    axios.get("https://and-api-ten.vercel.app/logout", { withCredentials : true})
 .then(() => window.location.href = "/login")
 .catch(err => console.log(err))
   }
