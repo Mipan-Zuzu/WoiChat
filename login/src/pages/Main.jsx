@@ -1,13 +1,12 @@
-import { Navigate } from "react-router-dom";
 import Button from "../components/Button"
 import axios from "axios";
 
-const HomePages = () => {
+export default function Main () {
 
   const logout = () => {
     axios.get("https://and-api-ten.vercel.app/logout", { withCredentials : true})
-.then(() => window.location.href = "/login")
-.catch(err => console.log(err))
+    .then(() => window.location.href = "/login")
+    .catch(err => console.log(err))
   }
 
   return (
@@ -20,4 +19,3 @@ const HomePages = () => {
   );
 };
 
-export default HomePages;

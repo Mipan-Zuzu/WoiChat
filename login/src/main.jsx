@@ -5,7 +5,7 @@ import "./index.css";
 import ErrorPages from "./pages/ErorPages";
 import RegisterPage from "./pages/RegisterPages";
 import LoginPage from "./pages/LoginPage";
-import HomePages from "./pages/HomePages";
+import Main from "./pages/Main"
 import ProtectedRoute from "./service/RequireLogin"
 
 const router = createBrowserRouter([
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
   path: "/home",
   element: (
     <ProtectedRoute>
-      <HomePages />
+      <Main />
     </ProtectedRoute>
   ),
 }
